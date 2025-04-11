@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Flip Clock com Data</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      margin: 0;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .date {
+      font-size: 28px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .clock {
+      display: flex;
+      gap: 15px;
+    }
+
+    .digit-container {
+      perspective: 800px;
+    }
+
+    .digit {
+      position: relative;
+      width: 100px;
+      height: 130px;
+      background: #222;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+      text-align: center;
+      line-height: 130px;
+      font-size: 80px;
+      color: #fff;
+      overflow: hidden;
+    }
+
+    .digit.animate {
+      animation: flip 0.5s ease-in-out;
+    }
+
+    @keyframes flip {
+      0% {
+        transform: rotateX(0deg);
+      }
+      50% {
+        transform: rotateX(-90deg);
+      }
+      100% {
+        transform: rotateX(0deg);
+      }
+    }
+
+    .colon {
+      font-size: 80px;
+      line-height: 130px;
+      padding: 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="date" id="date">Carregando data...</div>
+
+  <div class="clock">
+    <div class="digit-container"><div class="digit" id="h1">0</div></div>
+    <div class="digit-container"><div class="digit" id="h2">0</div></div>
+    <div class="colon">:</div>
+    <div class="digit-container"><div class="digit" id="m1">0</div></div>
+    <div class="digit-container"><div class="digit" id="m2">0</div></div>
+    <div class="colon">:</div>
+    <div class="digit-container"><div class="digit" id="s1">0</div></div>
+    <div class="digit-container"><div class="digit" id="s2">0</div></div>
+  </div>
+
+  <script>
+    function updateDigit(id, value) {
+      var el = document.getElementById(id);
+      if (el.textContent !== value) {
+        el.classList.remove('animate');
+        void el.offsetWidth;
+        el.textContent = value;
+        el.classList.add('animate');
+      }
+    }
+
+    function updateClock() {
+      var now = new Date();
+      var h = ("0" + now.getHours()).slice(-2);
+      var m = ("0" + now.getMinutes()).slice(-2);
+      var s = ("0" + now.getSeconds()).slice(-2);
+
+      updateDigit("h1", h[0]);
+      updateDigit("h2", h[1]);
+      updateDigit("m1", m[0]);
+      updateDigit("m2", m[1]);
+      updateDigit("s1", s[0]);
+      updateDigit("s2", s[1]);
+    }
+
+    function updateDate() {
+      var now = new Date();
+
+      var dias = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
+      var meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+
+      var diaSemana = dias[now.getDay()];
+      var dia = now.getDate();
+      var mes = meses[now.getMonth()];
+      var ano = now.getFullYear();
+
+      var texto = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
+      document.getElementById("date").textContent = texto;
+    }
+
+    updateDate();
+    updateClock();
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
