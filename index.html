@@ -1,131 +1,316 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <title>Flip Clock com Data</title>
-  <style>
-    body {
-      background-color: black;
-      color: white;
-      margin: 0;
-      font-family: 'Courier New', Courier, monospace;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-fullscreen">
+    <title>Relógio Flip - iPad</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .date {
-      font-size: 28px;
-      margin-bottom: 30px;
-      text-align: center;
-    }
+        body {
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            -webkit-user-select: none;
+            user-select: none;
+        }
 
-    .clock {
-      display: flex;
-      gap: 15px;
-    }
+        .date {
+            font-size: 2.5em;
+            margin-bottom: 40px;
+            text-align: center;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
 
-    .digit-container {
-      perspective: 800px;
-    }
+        .clock {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
 
-    .digit {
-      position: relative;
-      width: 100px;
-      height: 130px;
-      background: #222;
-      border-radius: 10px;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
-      text-align: center;
-      line-height: 130px;
-      font-size: 80px;
-      color: #fff;
-      overflow: hidden;
-    }
+        .digit-container {
+            perspective: 1000px;
+            -webkit-perspective: 1000px;
+        }
 
-    .digit.animate {
-      animation: flip 0.5s ease-in-out;
-    }
+        .digit {
+            position: relative;
+            width: 140px;
+            height: 200px;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            border-radius: 15px;
+            box-shadow: 
+                0 10px 30px rgba(0,0,0,0.5),
+                inset 0 1px 0 rgba(255,255,255,0.1);
+            text-align: center;
+            line-height: 200px;
+            font-size: 5.5em;
+            color: #fff;
+            overflow: hidden;
+            border: 2px solid #333;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+        }
 
-    @keyframes flip {
-      0% {
-        transform: rotateX(0deg);
-      }
-      50% {
-        transform: rotateX(-90deg);
-      }
-      100% {
-        transform: rotateX(0deg);
-      }
-    }
+        .digit.animate {
+            -webkit-animation: flip 0.6s ease-in-out;
+            animation: flip 0.6s ease-in-out;
+        }
 
-    .colon {
-      font-size: 80px;
-      line-height: 130px;
-      padding: 0 10px;
-    }
-  </style>
+        @-webkit-keyframes flip {
+            0% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+            50% {
+                -webkit-transform: rotateX(-90deg);
+                transform: rotateX(-90deg);
+            }
+            100% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+        }
+
+        @keyframes flip {
+            0% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+            50% {
+                -webkit-transform: rotateX(-90deg);
+                transform: rotateX(-90deg);
+            }
+            100% {
+                -webkit-transform: rotateX(0deg);
+                transform: rotateX(0deg);
+            }
+        }
+
+        .colon {
+            font-size: 5.5em;
+            line-height: 200px;
+            padding: 0 15px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            animation: blink 1s infinite;
+            -webkit-animation: blink 1s infinite;
+        }
+
+        @-webkit-keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        /* Responsivo para iPad */
+        @media (max-width: 1024px) {
+            .digit {
+                width: 120px;
+                height: 180px;
+                line-height: 180px;
+                font-size: 5em;
+            }
+            
+            .colon {
+                font-size: 5em;
+                line-height: 180px;
+            }
+            
+            .clock {
+                gap: 20px;
+            }
+            
+            .date {
+                font-size: 2.2em;
+                margin-bottom: 35px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .digit {
+                width: 100px;
+                height: 150px;
+                line-height: 150px;
+                font-size: 4em;
+            }
+            
+            .colon {
+                font-size: 4em;
+                line-height: 150px;
+                padding: 0 10px;
+            }
+            
+            .clock {
+                gap: 15px;
+            }
+            
+            .date {
+                font-size: 1.8em;
+                margin-bottom: 30px;
+            }
+        }
+
+        /* Efeitos visuais adicionais */
+        .digit:hover {
+            box-shadow: 
+                0 15px 40px rgba(0,0,0,0.6),
+                inset 0 1px 0 rgba(255,255,255,0.2);
+        }
+
+        /* Indicador de tela cheia */
+        .fullscreen-hint {
+            position: absolute;
+            bottom: 20px;
+            font-size: 0.9em;
+            opacity: 0.7;
+            text-align: center;
+            animation: fadeInOut 3s infinite;
+            -webkit-animation: fadeInOut 3s infinite;
+        }
+
+        @-webkit-keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 0.8; }
+        }
+    </style>
 </head>
 <body>
-  <div class="date" id="date">Carregando data...</div>
+    <div class="date" id="date">Carregando data...</div>
 
-  <div class="clock">
-    <div class="digit-container"><div class="digit" id="h1">0</div></div>
-    <div class="digit-container"><div class="digit" id="h2">0</div></div>
-    <div class="colon">:</div>
-    <div class="digit-container"><div class="digit" id="m1">0</div></div>
-    <div class="digit-container"><div class="digit" id="m2">0</div></div>
-    <div class="colon">:</div>
-    <div class="digit-container"><div class="digit" id="s1">0</div></div>
-    <div class="digit-container"><div class="digit" id="s2">0</div></div>
-  </div>
+    <div class="clock">
+        <div class="digit-container"><div class="digit" id="h1">0</div></div>
+        <div class="digit-container"><div class="digit" id="h2">0</div></div>
+        <div class="colon">:</div>
+        <div class="digit-container"><div class="digit" id="m1">0</div></div>
+        <div class="digit-container"><div class="digit" id="m2">0</div></div>
+        <div class="colon">:</div>
+        <div class="digit-container"><div class="digit" id="s1">0</div></div>
+        <div class="digit-container"><div class="digit" id="s2">0</div></div>
+    </div>
 
-  <script>
-    function updateDigit(id, value) {
-      var el = document.getElementById(id);
-      if (el.textContent !== value) {
-        el.classList.remove('animate');
-        void el.offsetWidth;
-        el.textContent = value;
-        el.classList.add('animate');
-      }
-    }
+    <div class="fullscreen-hint">Toque duas vezes para tela cheia</div>
 
-    function updateClock() {
-      var now = new Date();
-      var h = ("0" + now.getHours()).slice(-2);
-      var m = ("0" + now.getMinutes()).slice(-2);
-      var s = ("0" + now.getSeconds()).slice(-2);
+    <script>
+        // Compatível com iOS 9 - sem arrow functions ou template literals
+        function updateDigit(id, value) {
+            var el = document.getElementById(id);
+            if (el.textContent !== value) {
+                el.classList.remove('animate');
+                // Força reflow para reiniciar a animação
+                void el.offsetWidth;
+                el.textContent = value;
+                el.classList.add('animate');
+            }
+        }
 
-      updateDigit("h1", h[0]);
-      updateDigit("h2", h[1]);
-      updateDigit("m1", m[0]);
-      updateDigit("m2", m[1]);
-      updateDigit("s1", s[0]);
-      updateDigit("s2", s[1]);
-    }
+        function updateClock() {
+            var now = new Date();
+            var h = ('0' + now.getHours()).slice(-2);
+            var m = ('0' + now.getMinutes()).slice(-2);
+            var s = ('0' + now.getSeconds()).slice(-2);
 
-    function updateDate() {
-      var now = new Date();
+            updateDigit('h1', h[0]);
+            updateDigit('h2', h[1]);
+            updateDigit('m1', m[0]);
+            updateDigit('m2', m[1]);
+            updateDigit('s1', s[0]);
+            updateDigit('s2', s[1]);
+        }
 
-      var dias = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
-      var meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho",
-                   "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
+        function updateDate() {
+            var now = new Date();
 
-      var diaSemana = dias[now.getDay()];
-      var dia = now.getDate();
-      var mes = meses[now.getMonth()];
-      var ano = now.getFullYear();
+            var dias = ['domingo', 'segunda-feira', 'terça-feira', 'quarta-feira', 'quinta-feira', 'sexta-feira', 'sábado'];
+            var meses = ['janeiro', 'fevereiro', 'março', 'abril', 'maio', 'junho',
+                        'julho', 'agosto', 'setembro', 'outubro', 'novembro', 'dezembro'];
 
-      var texto = `${diaSemana}, ${dia} de ${mes} de ${ano}`;
-      document.getElementById("date").textContent = texto;
-    }
+            var diaSemana = dias[now.getDay()];
+            var dia = now.getDate();
+            var mes = meses[now.getMonth()];
+            var ano = now.getFullYear();
 
-    updateDate();
-    updateClock();
-    setInterval(updateClock, 1000);
-  </script>
+            var texto = diaSemana + ', ' + dia + ' de ' + mes + ' de ' + ano;
+            document.getElementById('date').textContent = texto;
+        }
+
+        // Suporte para tela cheia no iOS
+        function enterFullscreen() {
+            var elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) {
+                elem.webkitRequestFullscreen();
+            } else if (elem.mozRequestFullScreen) {
+                elem.mozRequestFullScreen();
+            } else if (elem.msRequestFullscreen) {
+                elem.msRequestFullscreen();
+            }
+        }
+
+        // Toque duplo para tela cheia
+        var lastTap = 0;
+        document.addEventListener('touchend', function(event) {
+            var currentTime = new Date().getTime();
+            var tapLength = currentTime - lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                enterFullscreen();
+                event.preventDefault();
+                // Esconde a dica após entrar em tela cheia
+                document.querySelector('.fullscreen-hint').style.display = 'none';
+            }
+            lastTap = currentTime;
+        });
+
+        // Previne zoom no iOS
+        document.addEventListener('gesturestart', function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener('gesturechange', function(event) {
+            event.preventDefault();
+        });
+
+        document.addEventListener('gestureend', function(event) {
+            event.preventDefault();
+        });
+
+        // Inicialização
+        updateDate();
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // Atualiza a data à meia-noite
+        setInterval(function() {
+            var now = new Date();
+            if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+                updateDate();
+            }
+        }, 1000);
+    </script>
 </body>
 </html>
+
